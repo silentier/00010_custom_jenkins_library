@@ -7,7 +7,7 @@ def call ( Map popertyInfo ){
             def conf = "app/conf.txt"
             props = readProperties file : conf
 
-            switch (props.compile.method) {
+            switch (props.compileMethod) {
                 case "mvn":
                     println "mvn"
                     break
