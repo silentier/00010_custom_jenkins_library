@@ -1,9 +1,15 @@
 def call ( Map popertyInfo ){
 
-
-        stage ("Stages") {
-            unitaryTest();
-            compile();
+    agent {
+        docker {
+            image 'node:14-alpine'
+            label 'docker-node'
         }
+    }
+
+      stage("Stages") {
+          unitaryTest();
+          compile();
+      }
 
 }
