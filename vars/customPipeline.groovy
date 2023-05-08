@@ -1,11 +1,10 @@
 def call ( Map popertyInfo ){
 
-    node ("k8s_master") {
+  agent none
 
         stage ("Stages") {
             unitaryTest();
             compile();
         }
-    }
 
 }
