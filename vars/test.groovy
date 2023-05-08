@@ -2,7 +2,7 @@ def call ( Map popertyInfo ){
 
     node ("k8s_master") {
 
-        stage ("Compile") {
+        stage ("Test") {
             checkout scm
 
             def conf = "app/conf.txt"
@@ -11,9 +11,9 @@ def call ( Map popertyInfo ){
             println props
             println "compileMethod:"+props.compileMethod
 
-            switch (props.compileMethod) {
+            switch (props.testMethod) {
                 case "mvn":
-                    sh ("mvn "+props.compileCommand)
+                    sh ("mvn "+props.testMethod)
                     break
                 default:
                     println "default"
