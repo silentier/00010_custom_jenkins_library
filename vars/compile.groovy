@@ -7,6 +7,7 @@ def call ( Map popertyInfo ){
             def conf = "app/conf.txt"
             props = readProperties file : conf
 
+            println props
             println "compileMethod:"+props.compileMethod
 
             switch (props.compileMethod) {
