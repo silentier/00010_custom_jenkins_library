@@ -2,7 +2,7 @@ def call ( Map popertyInfo ){
 
     node ("k8s_master") {
 
-        stage ("Test") {
+        stage ("unitaryTest") {
             checkout scm
 
             def conf = "app/conf.txt"
