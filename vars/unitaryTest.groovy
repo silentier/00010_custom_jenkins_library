@@ -16,6 +16,8 @@ def call ( Map popertyInfo ){
             println props
             println "compileMethod:"+props.compileMethod
 
+            sh ("ls -la")
+
             switch (props.testMethod) {
                 case "mvn":
                     sh ("mvn "+props.testMethod)
