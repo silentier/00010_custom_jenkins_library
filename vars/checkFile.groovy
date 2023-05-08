@@ -1,6 +1,6 @@
 def call ( Map popertyInfo ){
 
-    node ("santiago") {
+    node ("k8s_master") {
 
         stage ("Check File") {
             def conf = "app/conf.txt"
