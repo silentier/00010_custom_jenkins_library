@@ -1,6 +1,11 @@
 def call ( Map popertyInfo ){
 
-    node ("k8s_master") {
+    agent {
+        docker {
+            image 'node:14-alpine'
+            label 'docker-node'
+        }
+    }
 
         stage ("unitaryTest") {
             checkout scm
@@ -20,5 +25,5 @@ def call ( Map popertyInfo ){
                     break
             }
         }
-    }
+
 }
