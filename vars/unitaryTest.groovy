@@ -1,31 +1,25 @@
 def call ( Map popertyInfo ){
 
-    agent {
-        docker {
-            image 'node:14-alpine'
-            label 'docker-node'
-        }
-    }
-
-        stage ("unitaryTest") {
+    node("master") {
+        stage("unitaryTest") {
             checkout scm
 
             def conf = "app/conf.txt"
-            props = readProperties file : conf
+            props = readProperties file: conf
 
             println props
-            println "compileMethod:"+props.compileMethod
+            println "compileMethod:" + props.compileMethod
 
-            sh ("ls -la")
+            sh("ls -la")
 
             switch (props.testMethod) {
                 case "mvn":
-                    sh ("mvn "+props.testMethod)
+                    sh("mvn " + props.testMethod)
                     break
                 default:
                     println "default"
                     break
             }
         }
-
+    }
 }

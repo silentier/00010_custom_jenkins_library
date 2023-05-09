@@ -1,9 +1,9 @@
 def call ( Map popertyInfo ){
 
-
-
-          unitaryTest();
-          compile();
-
-
+    node("master") {
+        stage("Stages") {
+            unitaryTest();
+            compile();
+        }
+    }
 }
