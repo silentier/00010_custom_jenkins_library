@@ -1,5 +1,5 @@
 def call ( Map popertyInfo ){
-    node("node_to_use") {
+    node("def-container") {
         stage("Stages") {
            println "println"
         }
