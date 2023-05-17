@@ -1,5 +1,5 @@
 def call ( Map popertyInfo ){
-    node("def-container") {
+    node("jdk17mvn") {
         stage("Stages") {
            compile();
         }
