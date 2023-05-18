@@ -1,20 +1,23 @@
 def call ( Map popertyInfo ){
 
-    node("master") {
-        stage("unitaryTest") {
+    node ("k8s_master") {
+
+        stage ("Compile") {
             checkout scm
 
             def conf = "app/conf.txt"
-            props = readProperties file: conf
+            props = readProperties file : conf
 
             println props
-            println "compileMethod:" + props.compileMethod
+            println "compileMethod:"+props.testMethod
 
-            sh("ls -la")
-
-            switch (props.testMethod) {
+            switch (props.compileMethod) {
                 case "mvn":
-                    sh("mvn " + props.testMethod)
+                    configFileProvider([configFile(fileId: 'd9f13ed0-a67a-4c59-81d9-f6034324ed8b', variable: 'config')]) {
+                        sh ("mvn -version")
+                        sh ("mvn "+props.testMethod+" -s ${config} ")
+                    }
+
                     break
                 default:
                     println "default"
