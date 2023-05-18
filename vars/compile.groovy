@@ -1,6 +1,6 @@
 def call ( Map popertyInfo ){
 
-    node ("k8s_masterr") {
+    node ("k8s_master") {
 
         stage ("Compile") {
             checkout scm
