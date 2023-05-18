@@ -16,8 +16,8 @@ def call ( Map popertyInfo ){
             switch (props.compileMethod) {
                 case "mvn":
                     configFileProvider([configFile(fileId: 'd9f13ed0-a67a-4c59-81d9-f6034324ed8b', variable: 'config')]) {
-                        println "mvn "+props.compileCommand+" --s ${config} "
-                        sh ("mvn "+props.compileCommand+" --s ${config} ")
+                        println "mvn "+props.compileCommand+" -s ${config} "
+                        sh ("mvn "+props.compileCommand+" -s ${config} ")
                     }
 
                     break
