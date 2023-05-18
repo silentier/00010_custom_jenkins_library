@@ -12,7 +12,7 @@ def call ( Map popertyInfo ) {
                               usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 sh "docker login -u $USERNAME -p $PASSWORD "
             }
-        }
+
 
             sh("docker build -t " + props.dockerRepository + ":" + props.deockerDefaultTag + " .")
             sh ("docker push " + props.dockerRepository + ":" + props.deockerDefaultTag + " ")
