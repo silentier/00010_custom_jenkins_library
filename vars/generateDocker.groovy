@@ -10,7 +10,8 @@ def call ( Map popertyInfo ) {
             props = readProperties file: conf
 
             sh("ls -la")
-            sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW '
+
+            sh "docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW "
             sh("docker build -t " + props.dockerRepository + ":" + props.deockerDefaultTag + " .")
             sh ("docker push " + props.dockerRepository + ":" + props.deockerDefaultTag + " ")
         }
