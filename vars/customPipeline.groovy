@@ -4,7 +4,6 @@ def call ( Map popertyInfo ){
             compile();
             unitaryTest();
             packageStage();
-            generateDocker();
         }
     }
 }
