@@ -3,7 +3,7 @@ def call ( Map popertyInfo ){
         stage("Stages") {
             compile();
             unitaryTest();
-            package();
+            packageStage();
             generateDocker();
         }
     }
