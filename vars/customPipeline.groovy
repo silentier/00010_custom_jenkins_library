@@ -16,10 +16,16 @@ spec:
             node(POD_LABEL) {
                 container('maven') {
                     stage('Stages') {
-                        compile();
-                        unitaryTest();
-                        packageStage();
-                        generateDocker();
+
+                        script {
+                            sh("cat /etc/os-release")
+
+                            compile();
+                            unitaryTest();
+                            packageStage();
+                            generateDocker();
+
+                        }
                     }
                 }
             }
