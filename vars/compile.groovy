@@ -25,7 +25,7 @@ spec:
 
                 stage("Compile") {
                     when {
-                        expression { def props = readProperties file: "app/conf.txt"; props.compileEnabled == "true" }
+                        expression { "props" == "true" }
                     }
                     steps {
                         checkout scm
