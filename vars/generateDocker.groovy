@@ -1,6 +1,8 @@
 def call ( Map popertyInfo ){
     podTemplate(yaml: '''
               kind: Pod
+              metadata:
+                namespace: devops-tools
               spec:
                 containers:
                 - name: kaniko
