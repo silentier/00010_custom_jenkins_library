@@ -25,7 +25,7 @@ spec:
 
                 stage("Compile") {
                     when {
-                        expression { "props" == "true" }
+                        expression { false }
                     }
                     steps {
                         checkout scm
