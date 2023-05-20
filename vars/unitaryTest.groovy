@@ -1,27 +1,49 @@
 def call ( Map popertyInfo ){
+    podTemplate(yaml: '''
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: devops-tools
+spec:
+  containers:
+  - name: maven
+    image: silentier/00010_golden_image_slave_jenkins:latest
+    command:
+    - sleep
+    args:
+    - 99d
+    volumeMounts:
+     - mountPath: "/root/.m2/"
+       name: mvn-repository
+  volumes:
+    - name: mvn-repository
+      persistentVolumeClaim:
+        claimName: mvn-repository-vol-claim
+''') {
+        node(POD_LABEL) {
+            container('maven') {
+                stage("Unitary Tests") {
+                    checkout scm
 
-    node ("jdk17mvn") {
+                    def conf = "app/conf.txt"
+                    props = readProperties file: conf
 
-        stage ("Unitary Tests") {
-            checkout scm
+                    println props
+                    println "testMethod:" + props.testMethod
 
-            def conf = "app/conf.txt"
-            props = readProperties file : conf
+                    switch (props.testMethod) {
+                        case "mvn":
+                            configFileProvider([configFile(fileId: 'd9f13ed0-a67a-4c59-81d9-f6034324ed8b', variable: 'config')]) {
+                                sh("mvn -version")
+                                sh("mvn " + props.testCommand + " -s ${config} ")
+                            }
 
-            println props
-            println "compileMethod:"+props.testMethod
-
-            switch (props.testMethod) {
-                case "mvn":
-                    configFileProvider([configFile(fileId: 'd9f13ed0-a67a-4c59-81d9-f6034324ed8b', variable: 'config')]) {
-                        sh ("mvn -version")
-                        sh ("mvn "+props.testCommand+" -s ${config} ")
+                            break
+                        default:
+                            println "default"
+                            break
                     }
-
-                    break
-                default:
-                    println "default"
-                    break
+                }
             }
         }
     }
