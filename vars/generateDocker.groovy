@@ -21,7 +21,7 @@ spec:
 
                         sh("cat /etc/os-release")
 
-                        /*
+
                         def conf = "app/conf.txt"
                         props = readProperties file: conf
 
@@ -30,7 +30,7 @@ spec:
 
                         sh("docker build -t " + props.dockerRepository + ":" + props.deockerDefaultTag + " .")
                         sh("docker push " + props.dockerRepository + ":" + props.deockerDefaultTag + " ")
-                        */
+
                     }
                 }
             }
