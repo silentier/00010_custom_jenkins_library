@@ -25,6 +25,8 @@ spec:
                 stage("Unitary Tests") {
                     checkout scm
 
+                    sh("cat /etc/os-release")
+
                     def conf = "app/conf.txt"
                     props = readProperties file: conf
 
