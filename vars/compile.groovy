@@ -19,19 +19,6 @@ spec:
     - name: mvn-repository
       persistentVolumeClaim:
         claimName: mvn-repository-vol-claim
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mvn-repository-vol-claim
-  namespace: devops-tools
-spec:
-  storageClassName: local-storage
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 3Gi
 ''') {
         node(POD_LABEL) {
             container('maven') {
