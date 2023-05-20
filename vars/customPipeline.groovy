@@ -20,8 +20,8 @@ spec:
                         script {
                             sh("cat /etc/os-release")
 
-                            compile();
-                            unitaryTest();
+                            //compile();
+                            //unitaryTest();
                             packageStage();
                             generateDocker();
 

@@ -3,15 +3,30 @@ def call ( Map popertyInfo ){
 apiVersion: v1
 kind: Pod
 metadata:
-  namespace: devops-tools
+  name: kaniko
 spec:
   containers:
-  - name: dockerc
-    image: docker:latest
-    command:
-    - sleep
-    args:
-    - 99d
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    args: ["--dockerfile=/workspace/dockerfile",
+            "--context=dir://workspace",
+            "--destination=<user-name>/<repo>"] # replace with your dockerhub account
+    volumeMounts:
+      - name: kaniko-secret
+        mountPath: /kaniko/.docker
+      - name: dockerfile-storage
+        mountPath: /workspace
+  restartPolicy: Never
+  volumes:
+    - name: kaniko-secret
+      secret:
+        secretName: regcred
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+    - name: dockerfile-storage
+      persistentVolumeClaim:
+        claimName: dockerfile-claim
 ''') {
         node(POD_LABEL) {
             container('dockerc') {
