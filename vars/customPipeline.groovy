@@ -1,14 +1,29 @@
-def call ( Map popertyInfo ){
+def call ( Map popertyInfo ) {
     node("jdk17mvn") {
-        agent { node { label "jdk17mvn" }}
-        stage("Stages") {
-
-            sh("cat /etc/os-release")
-
-            compile();
-            unitaryTest();
-            packageStage();
-            generateDocker();
+        podTemplate(yaml: '''
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: devops-tools
+spec:
+  containers:
+  - name: maven
+    image: silentier/00010_golden_image_slave_jenkins:latest
+    command:
+    - sleep
+    args:
+    - 99d
+''') {
+            node(POD_LABEL) {
+                container('maven') {
+                    stage('check version') {
+                        compile();
+                        unitaryTest();
+                        packageStage();
+                        generateDocker();
+                    }
+                }
+            }
         }
     }
 }
