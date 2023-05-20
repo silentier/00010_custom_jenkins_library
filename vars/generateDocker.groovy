@@ -16,13 +16,6 @@ def call ( Map popertyInfo ){
         - name: kaniko-secret
           mountPath: /kaniko/.docker
       restartPolicy: Never
-      volumes:
-      - name: kaniko-secret
-        secret:
-            secretName: dockercred
-            items:
-            - key: .dockerconfigjson
-              path: config.json
 ''')
             {
         node(POD_LABEL) {
