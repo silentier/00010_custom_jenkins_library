@@ -3,6 +3,7 @@ def call ( Map popertyInfo ){
 apiVersion: v1
 kind: Pod
 metadata:
+  namespace: devops-tools
   name: kaniko
 spec:
   containers:
