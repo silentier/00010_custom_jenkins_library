@@ -15,7 +15,7 @@ spec:
 ''') {
             node(POD_LABEL) {
                 container('maven') {
-                    stage('check version') {
+                    stage('Stages') {
                         compile();
                         unitaryTest();
                         packageStage();

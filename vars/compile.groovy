@@ -13,8 +13,8 @@ spec:
     args:
     - 99d
     volumeMounts:
-        - mountPath: "/root/.m2/"
-        name: mvn-repository
+     - mountPath: "/root/.m2/"
+     name: mvn-repository
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
