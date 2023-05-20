@@ -2,6 +2,8 @@ def call ( Map popertyInfo ){
     podTemplate(yaml: '''
     apiVersion: v1
     kind: Pod
+    metadata:
+        namespace: devops-tools
     spec:
       containers:
       - name: maven
