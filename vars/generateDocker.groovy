@@ -20,7 +20,7 @@ def call ( Map popertyInfo ){
                   projected:
                     sources:
                     - secret:
-                        name: dockercred
+                        name: docker-secret
                         items:
                           - key: .dockerconfigjson
                             path: config.json
