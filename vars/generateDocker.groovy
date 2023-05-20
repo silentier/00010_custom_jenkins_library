@@ -1,21 +1,28 @@
 def call ( Map popertyInfo ){
     podTemplate(yaml: '''
-    apiVersion: v1
-    kind: Pod
-    metadata:
-        namespace: devops-tools
-    spec:
-      containers:
-      - name: kaniko
-        image: gcr.io/kaniko-project/executor:debug
-        command:
-        - sleep
-        args:
-        - 9999999
-        volumeMounts:
-        - name: kaniko-secret
-          mountPath: /kaniko/.docker
-      restartPolicy: Never
+              kind: Pod
+              spec:
+                containers:
+                - name: kaniko
+                  image: gcr.io/kaniko-project/executor:v1.6.0-debug
+                  imagePullPolicy: Always
+                  command:
+                  - sleep
+                  args:
+                  - 99d
+                  volumeMounts:
+                    - name: jenkins-docker-cfg
+                      mountPath: /kaniko/.docker
+                volumes:
+                - name: jenkins-docker-cfg
+                  projected:
+                    sources:
+                    - secret:
+                        name: regcred
+                        items:
+                          - key: .dockerconfigjson
+                            path: config.json
+
 ''')
             {
         node(POD_LABEL) {
