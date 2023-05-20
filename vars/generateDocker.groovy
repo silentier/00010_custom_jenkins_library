@@ -1,36 +1,36 @@
 def call ( Map popertyInfo ){
     podTemplate(yaml: '''
-apiVersion: v1
-kind: Pod
-metadata:
-  namespace: devops-tools
-  name: kaniko
-spec:
-  containers:
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
-    args: ["--dockerfile=/workspace/dockerfile",
-            "--context=dir://workspace",
-            "--destination=<user-name>/<repo>"] # replace with your dockerhub account
-    volumeMounts:
+    apiVersion: v1
+    kind: Pod
+    spec:
+      containers:
+      - name: maven
+        image: maven:3.8.1-jdk-8
+        command:
+        - sleep
+        args:
+        - 99d
+      - name: kaniko
+        image: gcr.io/kaniko-project/executor:debug
+        command:
+        - sleep
+        args:
+        - 9999999
+        volumeMounts:
+        - name: kaniko-secret
+          mountPath: /kaniko/.docker
+      restartPolicy: Never
+      volumes:
       - name: kaniko-secret
-        mountPath: /kaniko/.docker
-      - name: dockerfile-storage
-        mountPath: /workspace
-  restartPolicy: Never
-  volumes:
-    - name: kaniko-secret
-      secret:
-        secretName: regcred
-        items:
-          - key: .dockerconfigjson
-            path: config.json
-    - name: dockerfile-storage
-      persistentVolumeClaim:
-        claimName: dockerfile-claim
-''') {
+        secret:
+            secretName: dockercred
+            items:
+            - key: .dockerconfigjson
+              path: config.json
+''')
+            {
         node(POD_LABEL) {
-            container('dockerc') {
+            container('kaniko') {
                 stage("Generate and push docker") {
                     script {
                         checkout scm
@@ -52,8 +52,8 @@ spec:
 
 
 
-                        sh("docker build -t " + props.dockerRepository + ":" + props.deockerDefaultTag + " .")
-                        sh("docker push " + props.dockerRepository + ":" + props.deockerDefaultTag + " ")
+                    //sh("docker build -t " + props.dockerRepository + ":" + props.deockerDefaultTag + " .")
+                    // sh("docker push " + props.dockerRepository + ":" + props.deockerDefaultTag + " ")
 
                     }
                 }
