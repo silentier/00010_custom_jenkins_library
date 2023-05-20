@@ -12,6 +12,22 @@ spec:
     - sleep
     args:
     - 99d
+    volumeMounts:
+        - mountPath: "/root/.m2/"
+        name: mvn-repository
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mvn-repository
+  namespace: devops-tools
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
 ''') {
         node(POD_LABEL) {
             container('maven') {
