@@ -22,7 +22,7 @@ spec:
 ''') {
         node(POD_LABEL) {
             container('maven') {
-                stage("Generate docker") {
+                stage("Generate and push docker") {
                     script {
                         checkout scm
 
