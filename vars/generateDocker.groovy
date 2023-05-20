@@ -1,33 +1,35 @@
 def call ( Map popertyInfo ){
     podTemplate(yaml: '''
-apiVersion: v1
-kind: Pod
+apiVersion: "v1"
+kind: "Pod"
 metadata:
-  namespace: devops-tools
+  annotations:
+    buildUrl: "http://jenkins-service.jenkins.svc.cluster.local:8080/job/testdockerbuildchatgpt/4/"
+    runUrl: "job/testdockerbuildchatgpt/4/"
+  labels:
+    app: "my-docker-build"
+    jenkins: "agent"
+    jenkins/label-digest: "b5593a0e01711fc2ff02061aa718a7559c6e2f44"
+    jenkins/label: "my-docker-build"
+  name: "my-docker-build-md4d4-jfzc3"
+  namespace: "jenkins"
 spec:
   containers:
-  - name: maven
-    image: silentier/00010_golden_image_slave_jenkins:2023_05_20_17_39_40
-    command:
-    - sleep
-    args:
-    - 99d
-    volumeMounts:
-     - mountPath: "/root/.m2/"
-       name: mvn-repository
-  volumes:
-    - name: mvn-repository
-      persistentVolumeClaim:
-        claimName: mvn-repository-vol-claim
+  - command:
+    - "cat"
+    image: "docker:latest"
+    name: "docker"
+    tty: true
 ''') {
         node(POD_LABEL) {
-            container('maven') {
+            container('command') {
                 stage("Generate and push docker") {
                     script {
                         checkout scm
 
                         sh("cat /etc/os-release")
 
+                        /*
                         def conf = "app/conf.txt"
                         props = readProperties file: conf
 
@@ -36,6 +38,7 @@ spec:
 
                         sh("docker build -t " + props.dockerRepository + ":" + props.deockerDefaultTag + " .")
                         sh("docker push " + props.dockerRepository + ":" + props.deockerDefaultTag + " ")
+                        */
                     }
                 }
             }
