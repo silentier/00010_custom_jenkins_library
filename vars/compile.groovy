@@ -14,12 +14,16 @@ spec:
     - 99d
     volumeMounts:
      - mountPath: "/root/.m2/"
-     name: mvn-repository
+       name: mvn-repository
+  volumes:
+    - name: mvn-repository
+      persistentVolumeClaim:
+        claimName: mvn-repository-vol-claim
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mvn-repository
+  name: mvn-repository-vol-claim
   namespace: devops-tools
 spec:
   storageClassName: local-storage
