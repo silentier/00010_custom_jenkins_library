@@ -1,28 +1,20 @@
 def call ( Map popertyInfo ){
     podTemplate(yaml: '''
-apiVersion: "v1"
-kind: "Pod"
+apiVersion: v1
+kind: Pod
 metadata:
-  annotations:
-    buildUrl: "http://jenkins-service.jenkins.svc.cluster.local:8080/job/testdockerbuildchatgpt/4/"
-    runUrl: "job/testdockerbuildchatgpt/4/"
-  labels:
-    app: "my-docker-build"
-    jenkins: "agent"
-    jenkins/label-digest: "b5593a0e01711fc2ff02061aa718a7559c6e2f44"
-    jenkins/label: "my-docker-build"
-  name: "my-docker-build-md4d4-jfzc3"
-  namespace: "jenkins"
+  namespace: devops-tools
 spec:
   containers:
-  - command:
-    - "cat"
-    image: "docker:latest"
-    name: "docker"
-    tty: true
+  - name: dockerc
+    image: docker:latest
+    command:
+    - sleep
+    args:
+    - 99d
 ''') {
         node(POD_LABEL) {
-            container('command') {
+            container('dockerc') {
                 stage("Generate and push docker") {
                     script {
                         checkout scm
