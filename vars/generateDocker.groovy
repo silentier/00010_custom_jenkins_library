@@ -7,6 +7,10 @@ spec:
   containers:
   - name: executor
     image: gcr.io/kaniko-project/executor:latest
+    command:
+    - sleep
+    args:
+    - 99d
 ''')
             {
         node(POD_LABEL) {
