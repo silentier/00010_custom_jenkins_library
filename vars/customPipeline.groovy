@@ -1,5 +1,4 @@
 def call ( Map popertyInfo ) {
-    node("jdk17mvn") {
         podTemplate(yaml: '''
 apiVersion: v1
 kind: Pod
@@ -26,4 +25,3 @@ spec:
             }
         }
     }
-}
