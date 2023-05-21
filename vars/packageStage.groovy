@@ -46,8 +46,8 @@ spec:
                                 println "File count:"+FILE_COUNT
                                 println "File:"+file
 
-                                if(FILE_COUNT >= 0 || FILE_COUNT==0){
-                                    error "Debe existir uno y solo 1 archivo como resultado de este stage, y actualmente hay ${FILE_COIUNT}"
+                                if(FILE_COUNT != 1){
+                                    error "Debe existir uno y solo 1 archivo como resultado de este stage, y actualmente hay ${FILE_COUNT}"
                                 }
 
                                 archiveArtifacts artifacts: file
