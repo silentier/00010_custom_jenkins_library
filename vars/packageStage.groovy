@@ -39,7 +39,7 @@ spec:
                                 sh("mvn -version")
                                 sh("mvn " + props.packageCommand + " -s ${config} ")
 
-                                file = sh(script: "find ./targer -name *.jar " ,
+                                file = sh(script: "find ./target -name *.jar " ,
                                         returnStdout:true).trim()
                                 println "File:"+file
                             }
