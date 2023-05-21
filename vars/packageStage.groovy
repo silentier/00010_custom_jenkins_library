@@ -9,9 +9,6 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
-    args: ["--dockerfile=/workspace/dockerfile",
-            "--context=dir://workspace",
-            "--no-push"] 
     volumeMounts:
       - name: dockerfile-storage
         mountPath: /workspace
