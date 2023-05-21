@@ -5,7 +5,7 @@ def call ( Map popertyInfo ){
                 def conf = "app/conf.txt"
                 props = readProperties file: conf
 
-                sh("docker build -t "+pros.dockerRepository+":"+props.deockerDefaultTag" .")
+                sh("docker build -t "+pros.dockerRepository+":"+props.deockerDefaultTag+" .")
             }
         }
 }
