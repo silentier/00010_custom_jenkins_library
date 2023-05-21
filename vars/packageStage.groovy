@@ -50,7 +50,7 @@ spec:
                                     error "Debe existir uno y solo 1 archivo como resultado de este stage, y actualmente hay ${FILE_COUNT}"
                                 }
 
-                                archiveArtifacts artifacts: file
+                                archiveArtifacts artifacts: file.replaceAll("./","")
                             }
 
                             break
