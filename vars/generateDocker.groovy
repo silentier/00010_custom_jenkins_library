@@ -6,6 +6,15 @@ def call ( Map popertyInfo ){
                 props = readProperties file: conf
 
                 sh("docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" .")
+
+                copyArtifacts(
+                        fingerprintArtifacts: true,
+                        target: 'myArtifact.jar',
+                        flatten: true,
+                )
+
+                sh(" ls -la")
+
             }
         }
 }
