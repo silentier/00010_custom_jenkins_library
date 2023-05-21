@@ -3,22 +3,23 @@ def call ( Map popertyInfo ){
 apiVersion: v1
 kind: Pod
 metadata:
+  name: kaniko
   namespace: devops-tools
 spec:
   containers:
-  - name: maven
-    image: silentier/00010_golden_image_slave_jenkins:2023_05_20_17_39_40
-    command:
-    - sleep
-    args:
-    - 99d
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    args: ["--dockerfile=/workspace/dockerfile",
+            "--context=dir://workspace",
+            "--no-push"] 
     volumeMounts:
-     - mountPath: "/root/.m2/"
-       name: mvn-repository
+      - name: dockerfile-storage
+        mountPath: /workspace
+  restartPolicy: Never
   volumes:
-    - name: mvn-repository
+    - name: dockerfile-storage
       persistentVolumeClaim:
-        claimName: mvn-repository-vol-claim
+        claimName: dockerfile-claim
 ''') {
         node(POD_LABEL) {
             container('maven') {
