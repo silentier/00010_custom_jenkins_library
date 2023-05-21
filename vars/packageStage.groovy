@@ -42,8 +42,15 @@ spec:
                                 file = sh(script: "find ./target -name *.jar " ,
                                         returnStdout:true).trim()
 
-                                println "File count:"+file.split("\n").length
+                                FILE_COUNT=file.split("\n").length
+                                println "File count:"+FILE_COUNT
                                 println "File:"+file
+
+                                if(FILE_COUNT >= 0 || FILE_COUNT==0){
+                                    error "Debe existir uno y solo 1 archivo como resultado de este stage, y actualmente hay ${FILE_COIUNT}"
+                                }
+
+                                archiveArtifacts artifacts: file
                             }
 
                             break
