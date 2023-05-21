@@ -9,7 +9,7 @@ def call ( Map popertyInfo ){
 
                 copyArtifacts(
                         fingerprintArtifacts: true,
-                        filter: "*.jar"
+                        filter: "*.jar",
                         target: '/',
                         flatten: true,
                 )
