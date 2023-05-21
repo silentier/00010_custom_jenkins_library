@@ -2,21 +2,21 @@ def call ( Map popertyInfo ){
     podTemplate(yaml: '''
 apiVersion: v1
 kind: Pod
-  spec:
-    containers:
-    - name: kaniko
-      image: gcr.io/kaniko-project/executor:v1.6.0-debug
-      imagePullPolicy: Always
-      command:
-      - sleep
-      args:
-      - 99d
-      volumeMounts:
-        - name: dockerfile-storage
+metadata:
+  namespaces: devops-tools
+  name: kaniko
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    volumeMounts:
+      - name: dockerfile-storage
         mountPath: /workspace
   restartPolicy: Never
   volumes:
     - name: dockerfile-storage
+      persistentVolumeClaim:
+        claimName: dockerfile-claim
 ''') {
         node(POD_LABEL) {
             container('maven') {
