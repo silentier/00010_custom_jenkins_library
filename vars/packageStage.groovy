@@ -41,7 +41,7 @@ spec:
 
                                 file = sh(script: "find ./targer -name *.jar " ,
                                         returnStdout:true).trim()
-                                println file
+                                println "File:"+file
                             }
 
                             break
