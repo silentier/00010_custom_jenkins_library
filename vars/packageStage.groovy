@@ -38,6 +38,10 @@ spec:
                             configFileProvider([configFile(fileId: 'd9f13ed0-a67a-4c59-81d9-f6034324ed8b', variable: 'config')]) {
                                 sh("mvn -version")
                                 sh("mvn " + props.packageCommand + " -s ${config} ")
+
+                                file = sh(script: "find ./targer -name *.jar " ,
+                                        returnStdout:true).trim()
+                                println file
                             }
 
                             break
