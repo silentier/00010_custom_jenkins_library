@@ -9,10 +9,6 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
-    command:
-    - sleep
-    args:
-    - 99d
     volumeMounts:
       - name: dockerfile-storage
         mountPath: /workspace
@@ -27,7 +23,9 @@ spec:
                 stage("Generate docker") {
                     checkout scm
 
-                    sh("cat /etc/os-release")
+                    sh '''
+                        /kaniko/executor --context `pwd` --destination silentier/openia_search_word:latest
+                    '''
 
                 }
             }
