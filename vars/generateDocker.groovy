@@ -15,7 +15,7 @@ spec:
 ''')
             {
         node(POD_LABEL) {
-            container('kaniko') {
+            container('maven') {
                 stage("Generate and push docker") {
                     script {
                         checkout scm
