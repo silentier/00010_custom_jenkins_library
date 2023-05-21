@@ -1,18 +1,17 @@
 def call ( Map popertyInfo ){
     podTemplate(yaml: '''
-apiVersion: v1
-kind: Pod
-metadata:
-  name: kaniko
-spec:
-  containers:
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
-    args: ["--dockerfile=/workspace/dockerfile",
-            "--context=dir://workspace",
-            "--no-push"] 
-    volumeMounts:
-      - name: dockerfile-storage
+  kind: Pod
+  spec:
+    containers:
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:v1.6.0-debug
+      imagePullPolicy: Always
+      command:
+      - sleep
+      args:
+      - 99d
+      volumeMounts:
+        - name: dockerfile-storage
         mountPath: /workspace
   restartPolicy: Never
   volumes:
