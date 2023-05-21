@@ -9,9 +9,8 @@ def call ( Map popertyInfo ){
 
                 copyArtifacts(
                         fingerprintArtifacts: true,
-                        filter: "*.jar",
-                        target: '/',
-                        flatten: true,
+                        filter: "proyecto_00010_basic1-0.0.1-SNAPSHOT.jar",
+                        target: 'proyecto_00010_basic1-0.0.1-SNAPSHOT.jar'
                 )
 
                 sh(" ls -la")
