@@ -1,34 +1,11 @@
 def call ( Map popertyInfo ){
-    podTemplate(yaml: '''
-apiVersion: v1
-kind: Pod
-metadata:
-  namespace: devops-tools
-  name: kaniko
-spec:
-  containers:
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
-    volumeMounts:
-      - name: dockerfile-storage
-        mountPath: /workspace
-  restartPolicy: Never
-  volumes:
-    - name: dockerfile-storage
-      persistentVolumeClaim:
-        claimName: dockerfile-claim
-''') {
-        node(POD_LABEL) {
-            container('maven') {
-                stage("Generate docker") {
-                    checkout scm
+        node("k8s_master") {
+            stage("Generate docker") {
 
-                    sh '''
-                        /kaniko/executor --context `pwd` --destination silentier/openia_search_word:latest
-                    '''
+                def conf = "app/conf.txt"
+                props = readProperties file: conf
 
-                }
+                sh("docker build -t "+pros.dockerRepository+":"+props.deockerDefaultTag" .")
             }
         }
-    }
 }
