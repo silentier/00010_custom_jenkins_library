@@ -15,7 +15,7 @@ spec:
 ''') {
         node(POD_LABEL) {
             container('maven') {
-                stage("generate docker") {
+                stage("Generate docker") {
                     checkout scm
 
                     sh("cat /etc/os-release")
@@ -24,13 +24,13 @@ spec:
                     props = readProperties file: conf
 
                     println props
-                    println "testMethod:" + props.testMethod
+                    println "packageMethod:" + props.packageMethod
 
                     switch (props.testMethod) {
                         case "mvn":
                             configFileProvider([configFile(fileId: 'd9f13ed0-a67a-4c59-81d9-f6034324ed8b', variable: 'config')]) {
                                 sh("mvn -version")
-                                sh("mvn " + props.testCommand + " -s ${config} ")
+                                sh("mvn " + props.packageCommand + " -s ${config} ")
                             }
 
                             break
