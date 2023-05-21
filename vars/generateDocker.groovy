@@ -1,23 +1,17 @@
 def call ( Map popertyInfo ){
     podTemplate(yaml: '''
-  kind: Pod
-  spec:
-    containers:
-    - name: kaniko
-      image: gcr.io/kaniko-project/executor:v1.6.0-debug
-      imagePullPolicy: Always
-      command:
-      - sleep
-      args:
-      - 99d
-      volumeMounts:
-        - name: dockerfile-storage
-        mountPath: /workspace
-  restartPolicy: Never
-  volumes:
-    - name: dockerfile-storage
-      persistentVolumeClaim:
-        claimName: dockerfile-claim
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: devops-tools
+spec:
+  containers:
+  - name: maven
+    image: silentier/00010_golden_image_slave_jenkins:2023_05_20_17_39_40
+    command:
+    - sleep
+    args:
+    - 99d
 ''')
             {
         node(POD_LABEL) {
@@ -36,9 +30,12 @@ def call ( Map popertyInfo ){
                                           credentialsId: 'dockerhub',
                                           usernameVariable: 'USERNAME',
                                           passwordVariable: 'PASSWORD']]) {
+                            /*
                             sh """
                                 docker login -u $USERNAME -p $PASSWORD
                             """
+                             */
+                            sh("docker build -t " + props.dockerRepository + ":" + props.deockerDefaultTag + " .")
                         }
 
 
