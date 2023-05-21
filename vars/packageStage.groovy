@@ -42,7 +42,7 @@ spec:
                                 file = sh(script: "find ./target -name *.jar " ,
                                         returnStdout:true).trim()
 
-                                pringln "File count:"+file.split("\n").length
+                                println "File count:"+file.split("\n").length
                                 println "File:"+file
                             }
 
