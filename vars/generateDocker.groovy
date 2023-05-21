@@ -5,7 +5,7 @@ def call ( Map popertyInfo ){
                 def conf = "app/conf.txt"
                 props = readProperties file: conf
 
-                sh("docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" .")
+
 
                 copyArtifacts(
                         fingerprintArtifacts: true,
@@ -14,7 +14,7 @@ def call ( Map popertyInfo ){
                 )
 
                 sh(" ls -la")
-
+                sh("docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" .")
             }
         }
 }
