@@ -3,15 +3,22 @@ def call ( Map popertyInfo ){
 apiVersion: v1
 kind: Pod
 metadata:
-    namespace: devops-tools
+  name: kaniko
 spec:
   containers:
-  - name: executor
+  - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
-    command:
-    - sleep
-    args:
-    - 99d
+    args: ["--dockerfile=/workspace/dockerfile",
+            "--context=dir://workspace",
+            "--no-push"] 
+    volumeMounts:
+      - name: dockerfile-storage
+        mountPath: /workspace
+  restartPolicy: Never
+  volumes:
+    - name: dockerfile-storage
+      persistentVolumeClaim:
+        claimName: dockerfile-claim
 ''')
             {
         node(POD_LABEL) {
