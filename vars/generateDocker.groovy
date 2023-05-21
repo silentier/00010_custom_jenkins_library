@@ -7,7 +7,8 @@ def call ( Map popertyInfo ){
 
 
 
-                copyArtifacts(
+                step(
+                        $class: "CopyArtifact",
                         fingerprintArtifacts: true,
                         target: 'myArtifact.jar',
                         flatten: true,
