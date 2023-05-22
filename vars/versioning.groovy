@@ -56,7 +56,7 @@ spec:
                                 NEW_VERSION=sh(script:"mvn help:evaluate -Dexpression=project.version -q -DforceStdout" , returnStdout: true).trim()
                                 println "NEW_VERSION:"+NEW_VERSION
 
-                                currentBuild.displayName NEW_VERSION
+                                currentBuild.displayName = NEW_VERSION
                                 currentBuild.description = BRANCH
                             }
 
