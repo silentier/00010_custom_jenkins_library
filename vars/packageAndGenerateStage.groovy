@@ -72,6 +72,18 @@ spec:
                     sh("docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" .")
                 }
             }
+            container('docker-cmds') {
+                stage("Push Docker") {
+
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                                      credentialsId: 'dockerhub',
+                                      usernameVariable: 'USERNAME',
+                                      passwordVariable: 'PASSWORD']]) {
+                        sh 'docker login -u $USERNAME -p $PASSWORD '
+                    }
+                    sh("docker push "+props.dockerRepository+":"+props.deockerDefaultTag+" ")
+                }
+            }
         }
     }
 }

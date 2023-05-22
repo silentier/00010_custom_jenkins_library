@@ -22,7 +22,7 @@ spec:
 
                             //compile();
                             //unitaryTest();
-                            packageStage();
+                            packageAndGenerateStage();
 
                         }
                     }
