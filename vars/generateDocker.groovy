@@ -23,7 +23,7 @@ spec:
             path: /var/run 
 ''') {
         node(POD_LABEL) {
-            container('maven') {
+            container('dood') {
                 stage("Generate docker") {
                     checkout scm
 
