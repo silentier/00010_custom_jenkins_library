@@ -62,6 +62,16 @@ spec:
                     }
                 }
             }
+            container('docker-cmds') {
+                stage("Generate docker") {
+
+                    def conf = "app/conf.txt"
+                    props = readProperties file: conf
+
+                    println "docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" ."
+                    sh("docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" .")
+                }
+            }
         }
     }
 }
