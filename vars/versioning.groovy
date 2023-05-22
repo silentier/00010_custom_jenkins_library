@@ -12,15 +12,15 @@ spec:
     - sleep
     args:
     - 99d
+    volumeMounts:
+     - mountPath: "/root/.m2/"
+       name: mvn-repository
   - name: git
     image: bitnami/git:latest
     command:
     - sleep
     args:
     - 99d    
-    volumeMounts:
-     - mountPath: "/root/.m2/"
-       name: mvn-repository
   volumes:
     - name: mvn-repository
       persistentVolumeClaim:
