@@ -4,6 +4,7 @@ apiVersion: v1
 kind: Pod 
 metadata: 
     name: dood 
+    namespace: devops-tools 
 spec: 
     containers: 
       - name: docker-cmds 
