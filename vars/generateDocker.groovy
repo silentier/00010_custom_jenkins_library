@@ -25,7 +25,6 @@ spec:
         node(POD_LABEL) {
             container('docker-cmds') {
                 stage("Generate docker") {
-                    checkout scm
 
                     def conf = "app/conf.txt"
                     props = readProperties file: conf
