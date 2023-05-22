@@ -63,6 +63,23 @@ spec:
             }
             container('git') {
                stage("Versioning") {
+
+                   PWD=sh(script:"pwd", returnStdout:true).trim()
+                   sh(" git config --global --add safe.directory ${PWD} ")
+
+                   withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                                     credentialsId: 'administratorsilentier',
+                                     usernameVariable: 'USERNAME',
+                                     passwordVariable: 'PASSWORD']]) {
+                       sh("""
+                        git config user.name "Jenkins"
+                        git config user.email "administrator@silentier.com"
+                        git config  url.https://${USERNAME}:${PASSWORD}@github.com/.insteadof https://github.com
+                       """)
+                   }
+
+
+
                    sh("git add .")
                    sh("git commit -m 'build ${NEW_VERSION}' ")
                    sh("git push")
