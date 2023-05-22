@@ -78,7 +78,7 @@ spec:
                        """)
                    }
 
-                   println 'Pulling...' + env.BRANCH_NAME
+                   sh("git checkout main")
                    sh("git status")
                    sh("git rev-parse --abbrev-ref HEAD")
 
