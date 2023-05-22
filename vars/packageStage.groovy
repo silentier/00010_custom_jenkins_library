@@ -15,10 +15,23 @@ spec:
     volumeMounts:
      - mountPath: "/root/.m2/"
        name: mvn-repository
+  - name: docker-cmds
+    image: docker:1.12.6 
+    command: ['docker', 'run', '-p', '80:80', 'httpd:latest'] 
+    resources: 
+        requests: 
+            cpu: 10m 
+            memory: 256Mi 
+    volumeMounts: 
+      - mountPath: /var/run 
+        name: docker-sock 
   volumes:
     - name: mvn-repository
       persistentVolumeClaim:
         claimName: mvn-repository-vol-claim
+    - name: docker-sock 
+        hostPath: 
+            path: /var/run 
 ''') {
         node(POD_LABEL) {
             container('maven') {
@@ -39,21 +52,6 @@ spec:
                                 sh("mvn -version")
                                 sh("mvn " + props.packageCommand + " -s ${config} ")
 
-                                /*
-                                file = sh(script: "find ./target -name *.jar " ,
-                                        returnStdout:true).trim()
-
-                                FILE_COUNT=file.split("\n").length
-                                println "File count:"+FILE_COUNT
-                                println "File:"+file
-
-                                if(FILE_COUNT != 1){
-                                    error "Debe existir uno y solo 1 archivo como resultado de este stage, y actualmente hay ${FILE_COUNT}"
-                                }
-
-                                archiveArtifacts artifacts: file.split("\n")[0].replaceAll("\\./","")
-
-                                 */
                             }
 
                             break
@@ -61,6 +59,15 @@ spec:
                             println "default"
                             break
                     }
+                }
+            }
+            container('docker-cmds') {
+                stage("Generate docker") {
+                    def conf = "app/conf.txt"
+                    props = readProperties file: conf
+
+                    println "docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" ."
+                    sh("docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" .")
                 }
             }
         }

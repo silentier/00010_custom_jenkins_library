@@ -23,7 +23,6 @@ spec:
                             //compile();
                             //unitaryTest();
                             packageStage();
-                            generateDocker();
 
                         }
                     }
