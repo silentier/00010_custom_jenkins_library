@@ -12,6 +12,12 @@ spec:
     - sleep
     args:
     - 99d
+    volumeMounts:
+     - mountPath: "/root/.m2/"
+       name: mvn-repository
+  volumes:
+    - name: mvn-repository
+      persistentVolumeClaim:
 ''') {
         node(POD_LABEL) {
             container('maven') {
@@ -27,11 +33,19 @@ spec:
                     switch (props.compileMethod) {
                         case "mvn":
                             configFileProvider([configFile(fileId: 'd9f13ed0-a67a-4c59-81d9-f6034324ed8b', variable: 'config')]) {
-                                sh("mvn -version")
+                                OLD_VERSION=sh(script:"mvn help:evaluate -Dexpression=project.version -q -DforceStdout" , returnStdout: true).trim()
+
                                 parte1='${parsedVersion.majorVersion}'
                                 parte2='${parsedVersion.minorVersion}'
                                 parte3='${parsedVersion.nextIncrementalVersion}'
-                                sh("""mvn mvn build-helper:parse-version versions:set -DnewVersion=\\${parte1}.\\${parte2}.\\${parte3} versions:commit -s ${config} """)
+                                sh("""mvn build-helper:parse-version versions:set -DnewVersion=\\${parte1}.\\${parte2}.\\${parte3} versions:commit -s ${config} """)
+
+                                NEW_VERSION=sh(script:"mvn help:evaluate -Dexpression=project.version -q -DforceStdout" , returnStdout: true).trim()
+
+
+                                sh("mvn add .")
+                                sh("mvn commit -m 'build ${NEW_VERSION}' ")
+                                sh("mvn push")
                             }
 
                             break
