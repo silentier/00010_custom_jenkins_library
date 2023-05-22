@@ -39,6 +39,7 @@ spec:
                                 sh("mvn -version")
                                 sh("mvn " + props.packageCommand + " -s ${config} ")
 
+                                /*
                                 file = sh(script: "find ./target -name *.jar " ,
                                         returnStdout:true).trim()
 
@@ -51,6 +52,8 @@ spec:
                                 }
 
                                 archiveArtifacts artifacts: file.split("\n")[0].replaceAll("\\./","")
+
+                                 */
                             }
 
                             break
