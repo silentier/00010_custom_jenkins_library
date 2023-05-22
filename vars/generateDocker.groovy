@@ -1,21 +1,37 @@
 def call ( Map popertyInfo ){
-        node("k8s_master") {
-            stage("Generate docker") {
+    podTemplate(yaml: '''
+apiVersion: v1 
+kind: Pod 
+metadata: 
+    name: dood 
+spec: 
+    containers: 
+      - name: docker-cmds 
+        image: docker:1.12.6 
+        command: ['docker', 'run', '-p', '80:80', 'httpd:latest'] 
+        resources: 
+            requests: 
+                cpu: 10m 
+                memory: 256Mi 
+        volumeMounts: 
+          - mountPath: /var/run 
+            name: docker-sock 
+    volumes: 
+      - name: docker-sock 
+        hostPath: 
+            path: /var/run 
+''') {
+        node(POD_LABEL) {
+            container('maven') {
+                stage("Generate docker") {
+                    checkout scm
 
-                def conf = "app/conf.txt"
-                props = readProperties file: conf
+                    sh '''
+                echo "hello"
+              '''
 
-
-
-                copyArtifacts(
-                        filter: 'proyecto_00010_basic1-0.0.1-SNAPSHOT.jar',
-                        projectName: env.JOB_NAME,
-                        fingerprintArtifacts: true,
-                        selector: specific(env.BUILD_NUMBER)
-                )
-
-                sh(" ls -la")
-                sh("docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" .")
+                }
             }
         }
+    }
 }
