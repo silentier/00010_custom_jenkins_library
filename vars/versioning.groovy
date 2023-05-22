@@ -43,9 +43,9 @@ spec:
                                 NEW_VERSION=sh(script:"mvn help:evaluate -Dexpression=project.version -q -DforceStdout" , returnStdout: true).trim()
 
 
-                                sh("mvn add .")
-                                sh("mvn commit -m 'build ${NEW_VERSION}' ")
-                                sh("mvn push")
+                                sh("git add .")
+                                sh("git commit -m 'build ${NEW_VERSION}' ")
+                                sh("git push")
                             }
 
                             break
