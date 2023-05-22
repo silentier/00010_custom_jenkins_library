@@ -23,7 +23,7 @@ spec:
             path: /var/run 
 ''') {
         node(POD_LABEL) {
-            container('dood') {
+            container('docker-cmds ') {
                 stage("Generate docker") {
                     checkout scm
 
