@@ -62,7 +62,7 @@ spec:
                 }
             }
             container('git') {
-               stage("Versioning") {
+               stage("Tag") {
 
                    PWD=sh(script:"pwd", returnStdout:true).trim()
                    sh(" git config --global --add safe.directory ${PWD} ")
@@ -78,6 +78,7 @@ spec:
                        """)
                    }
 
+                   pritln 'Pulling...' + env.BRANCH_NAME
                    sh("git status")
                    sh("git rev-parse --abbrev-ref HEAD")
 
