@@ -79,6 +79,7 @@ spec:
                    }
 
                    sh("git status")
+                   sh("git rev-parse --abbrev-ref HEAD")
 
                    sh("git add .")
                    sh("git commit -m 'build ${NEW_VERSION}' ")
