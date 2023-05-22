@@ -28,9 +28,12 @@ spec:
                     checkout scm
 
                     sh '''
-                echo "hello"
+                docker build -t 
               '''
+                    def conf = "app/conf.txt"
+                    props = readProperties file: conf
 
+                    sh("docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" .")
                 }
             }
         }
