@@ -27,9 +27,6 @@ spec:
                 stage("Generate docker") {
                     checkout scm
 
-                    sh '''
-                docker build -t 
-              '''
                     def conf = "app/conf.txt"
                     props = readProperties file: conf
 
