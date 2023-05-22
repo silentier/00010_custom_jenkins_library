@@ -85,7 +85,8 @@ spec:
                        """)
                    }
 
-                   sh("git checkout ${env.BRANCH}")
+                   println "TheBranch: $BRANCH"
+                   sh("git checkout "+BRANCH)
                    sh("git status")
                    sh("git rev-parse --abbrev-ref HEAD")
 
