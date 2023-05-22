@@ -12,6 +12,12 @@ spec:
     - sleep
     args:
     - 99d
+  - name: git
+    image: bitnami/git:latest
+    command:
+    - sleep
+    args:
+    - 99d    
     volumeMounts:
      - mountPath: "/root/.m2/"
        name: mvn-repository
@@ -44,9 +50,7 @@ spec:
                                 NEW_VERSION=sh(script:"mvn help:evaluate -Dexpression=project.version -q -DforceStdout" , returnStdout: true).trim()
                                 println "NEW_VERSION:"+NEW_VERSION
 
-                                sh("git add .")
-                                sh("git commit -m 'build ${NEW_VERSION}' ")
-                                sh("git push")
+
                             }
 
                             break
@@ -55,6 +59,13 @@ spec:
                             break
                     }
 
+                }
+            }
+            container('git') {
+               stage("Versioning") {
+                   sh("git add .")
+                   sh("git commit -m 'build ${NEW_VERSION}' ")
+                   sh("git push")
                 }
             }
         }
