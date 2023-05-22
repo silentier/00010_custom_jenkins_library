@@ -20,8 +20,9 @@ spec:
                         script {
                             sh("cat /etc/os-release")
 
-                            //compile();
-                            //unitaryTest();
+                            versioning();
+                            compile();
+                            unitaryTest();
                             packageAndGenerateStage();
 
                         }
