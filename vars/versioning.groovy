@@ -78,7 +78,7 @@ spec:
                        """)
                    }
 
-
+                   sh("git status")
 
                    sh("git add .")
                    sh("git commit -m 'build ${NEW_VERSION}' ")
