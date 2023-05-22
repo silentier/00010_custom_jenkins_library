@@ -28,7 +28,10 @@ spec:
                         case "mvn":
                             configFileProvider([configFile(fileId: 'd9f13ed0-a67a-4c59-81d9-f6034324ed8b', variable: 'config')]) {
                                 sh("mvn -version")
-                                sh("""mvn mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit -s ${config} """)
+                                parte1='${parsedVersion.majorVersion}'
+                                parte2='${parsedVersion.minorVersion}'
+                                parte3='${parsedVersion.nextIncrementalVersion}'
+                                sh("""mvn mvn build-helper:parse-version versions:set -DnewVersion=\\${parte1}.\\${parte2}.\\${parte3} versions:commit -s ${config} """)
                             }
 
                             break
