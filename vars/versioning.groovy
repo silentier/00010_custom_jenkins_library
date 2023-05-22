@@ -85,9 +85,12 @@ spec:
                        """)
                    }
 
-                   sh("git checkout ${BRANCH}")
+                   sh("git checkout ${env.BRANCH}")
                    sh("git status")
                    sh("git rev-parse --abbrev-ref HEAD")
+
+                   sh (" git tag -a ${env.BRANCH} -m \"${env.BRANCH}\" ")
+                   sh (" git push --tags ")
 
                    sh("git add .")
                    sh("git commit -m 'build ${NEW_VERSION}' ")
