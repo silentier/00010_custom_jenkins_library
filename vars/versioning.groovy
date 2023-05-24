@@ -84,6 +84,7 @@ spec:
                        """)
                    }
 
+                   sh("ls -la")
                    sh(" git config --global --add safe.directory ${PWD} ")
 
 
