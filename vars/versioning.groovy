@@ -73,6 +73,9 @@ spec:
 
                    PWD=sh(script:"pwd", returnStdout:true).trim()
                    sh("ls -la")
+
+                   def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                   echo ${BRANCH}
                    sh(" git config --global --add safe.directory ${PWD} ")
                    withCredentials([[$class: 'UsernamePasswordMultiBinding',
                                      credentialsId: 'administratorsilentier',
