@@ -63,13 +63,18 @@ spec:
                 }
             }
             container('docker-cmds') {
+                stage("Getting current Version") {
+                    CURRENT_VERSION = sh(script: "mvn help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+
+                }
                 stage("Generate docker") {
 
                     def conf = "app/conf.txt"
                     props = readProperties file: conf
 
                     println "docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" ."
-                    sh("docker build -t "+props.dockerRepository+":"+props.deockerDefaultTag+" .")
+                    sh("docker build -t "+props.dockerRepository+":"+props.dockerDefaultTag+" .")
+                    sh("docker build -t "+props.dockerRepository+":"+CURRENT_VERSION+" .")
                 }
             }
             container('docker-cmds') {
@@ -81,7 +86,8 @@ spec:
                                       passwordVariable: 'PASSWORD']]) {
                         sh 'docker login -u $USERNAME -p $PASSWORD '
                     }
-                    sh("docker push "+props.dockerRepository+":"+props.deockerDefaultTag+" ")
+                    sh("docker push "+props.dockerRepository+":"+props.dockerDefaultTag+" ")
+                    sh("docker push "+props.dockerRepository+":"+CURRENT_VERSION+" ")
                 }
             }
         }
