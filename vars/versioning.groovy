@@ -88,14 +88,11 @@ spec:
 
 
 
-                   def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-
-
-                   println scm.branches[0].name
+                   def BRANCH = scm.branches[0].name
 
                    sh("git add .")
                    sh("git commit -m 'build ${NEW_VERSION}' ")
-                   sh("git push")
+                   sh("git push origin HEAD:${BRANCH}")
                 }
             }
         }
