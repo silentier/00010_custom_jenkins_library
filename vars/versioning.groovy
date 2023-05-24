@@ -89,7 +89,7 @@ spec:
 
 
                    def BRANCH = scm.branches[0].name
-                   BRANCH = BRANCH.sustring(BRANCH.lastIndexOf("/"), BRANCH.length)
+                   BRANCH = BRANCH.sustring(BRANCH.lastIndexOf("/")+1, BRANCH.length)
                    sh("git add .")
                    sh("git commit -m 'build ${NEW_VERSION}' ")
                    sh("git push origin HEAD:${BRANCH}")
