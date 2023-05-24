@@ -85,8 +85,8 @@ spec:
                        """)
                    }
 
-                   println "TheBranch: $BRANCH"
-                   sh("git checkout "+BRANCH)
+                   //println "TheBranch: $BRANCH"
+                   //sh("git checkout "+BRANCH)
                    sh("git status")
                    sh("git rev-parse --abbrev-ref HEAD")
 
