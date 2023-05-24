@@ -62,11 +62,13 @@ spec:
                     }
                 }
             }
-            container('docker-cmds') {
+            container("maven") {
                 stage("Getting current Version") {
-                    CURRENT_VERSION = sh(script: "mvn help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+                    env.CURRENT_VERSION = sh(script: "mvn help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
 
                 }
+            }
+            container('docker-cmds') {
                 stage("Generate docker") {
 
                     def conf = "app/conf.txt"
