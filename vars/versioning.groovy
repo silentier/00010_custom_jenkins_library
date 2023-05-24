@@ -89,7 +89,7 @@ spec:
 
 
                    def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                   echo ${BRANCH}
+                   println BRANCH
 
                    sh("git add .")
                    sh("git commit -m 'build ${NEW_VERSION}' ")
