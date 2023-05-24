@@ -57,7 +57,7 @@ spec:
                                 println "NEW_VERSION:"+NEW_VERSION
 
                                 currentBuild.displayName = NEW_VERSION
-                                currentBuild.description = BRANCH
+                                //currentBuild.description = BRANCH
                             }
 
                             break
