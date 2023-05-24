@@ -92,7 +92,7 @@ spec:
                    println GIT_BRANCH
                    println BRANCH
                    sh("git branch -a")
-                   prrintln scm.branches[0].name
+                   println scm.branches[0].name
 
                    sh("git add .")
                    sh("git commit -m 'build ${NEW_VERSION}' ")
