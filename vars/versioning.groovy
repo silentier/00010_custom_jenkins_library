@@ -72,7 +72,6 @@ spec:
                stage("Tag") {
 
                    PWD=sh(script:"pwd", returnStdout:true).trim()
-                   sh(" git config --global --add safe.directory ${PWD} ")
 
                    withCredentials([[$class: 'UsernamePasswordMultiBinding',
                                      credentialsId: 'administratorsilentier',
@@ -85,13 +84,8 @@ spec:
                        """)
                    }
 
-                   //println "TheBranch: $BRANCH"
-                   //sh("git checkout "+BRANCH)
-                   sh("git status")
-                   sh("git rev-parse --abbrev-ref HEAD")
+                   sh(" git config --global --add safe.directory ${PWD} ")
 
-                   sh (" git tag -a ${env.BRANCH} -m \"${env.BRANCH}\" ")
-                   sh (" git push --tags ")
 
                    sh("git add .")
                    sh("git commit -m 'build ${NEW_VERSION}' ")
