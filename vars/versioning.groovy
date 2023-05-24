@@ -72,7 +72,7 @@ spec:
                stage("Tag") {
 
                    PWD=sh(script:"pwd", returnStdout:true).trim()
-                   sh("ls -la")
+
                    sh(" git config --global --add safe.directory ${PWD} ")
 
                    withCredentials([[$class: 'UsernamePasswordMultiBinding',
