@@ -24,7 +24,7 @@ spec:
                             compile();
                             unitaryTest();
                             packageAndGenerateStage();
-
+                            restartDeployment();
                         }
                     }
                 }
