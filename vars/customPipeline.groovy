@@ -18,7 +18,8 @@ spec:
                     stage('Stages') {
 
                         script {
-                            sh("cat /etc/os-release")
+                            clearWs()
+                            println "***************** V1.0"
 
                             versioning();
                             compile();

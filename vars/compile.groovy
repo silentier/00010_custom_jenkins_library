@@ -26,8 +26,6 @@ spec:
                 stage("Compile") {
                     checkout scm
 
-                    println "***************** V1.0"
-
                     def conf = "app/conf.txt"
                     props = readProperties file: conf
 
