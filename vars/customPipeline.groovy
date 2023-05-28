@@ -18,7 +18,6 @@ spec:
                     stage('Stages') {
 
                         script {
-                            clearWs()
                             println "***************** V1.0"
 
                             versioning();
