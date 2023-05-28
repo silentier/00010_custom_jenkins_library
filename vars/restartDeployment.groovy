@@ -1,5 +1,5 @@
 def call ( Map popertyInfo ) {
-    node("K8S_master") {
+    node("K8s_master") {
         stage("restart service") {
             steps {
 
