@@ -5,6 +5,8 @@ def call ( Map popertyInfo ) {
 
                 def conf = "app/conf.txt"
                 props = readProperties file: conf
+                println props
+
                 DEPLOYMENT_NAME = props.deploymentName
 
 
