@@ -1,7 +1,7 @@
 def call ( Map popertyInfo ) {
     node("k8s_master") {
         stage("restart service") {
-            steps {
+            script {
 
                 def conf = "app/conf.txt"
                 props = readProperties file: conf
