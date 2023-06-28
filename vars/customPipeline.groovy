@@ -19,6 +19,7 @@ spec:
 
                         script {
                             println "***************** V1.0"
+                            sh ("cat /etc/os-release")
 
                             versioning();
                             compile();
