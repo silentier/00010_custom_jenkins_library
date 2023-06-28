@@ -7,7 +7,8 @@ metadata:
 spec:
   containers:
   - name: maven
-    image: silentier/00010_golden_image_slave_jenkins:2023_06_28_04_17_53
+    image: silentier/00010_golden_image_slave_jenkins
+    imagePullPolicy: Always
     command:
     - sleep
     args:
@@ -18,7 +19,7 @@ spec:
                     stage('Stages') {
 
                         script {
-                            println "***************** V1.0"
+                            println "***************** V2.0"
                             sh ("cat /etc/os-release")
                             sh("node --version")
                             sh("npm --version")
