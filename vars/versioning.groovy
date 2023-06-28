@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: maven
-    image: silentier/00010_golden_image_slave_jenkins
+    image: silentier/00010_golden_image_slave_jenkins:2023_06_28_04_17_53
     command:
     - sleep
     args:
