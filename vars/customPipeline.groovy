@@ -7,8 +7,8 @@ metadata:
   name: esta_es_una_prueba
 spec:
   containers:
-  - name: maven
-    image: silentier/00010_golden_image_slave_jenkins
+  - name: maven2
+    image: silentier/00010_golden_image_slave_jenkins:2023_06_28_04_17_53
     imagePullPolicy: Always
     command:
     - sleep
@@ -16,7 +16,7 @@ spec:
     - 99d
 ''') {
             node(POD_LABEL) {
-                container('maven') {
+                container('maven2') {
                     stage('Stages') {
 
                         script {
