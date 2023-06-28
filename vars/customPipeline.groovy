@@ -14,7 +14,7 @@ spec:
     - sleep
     args:
     - 99d
-''') {
+''', podRetention: never) {
             node(POD_LABEL) {
                 container('maven') {
                     stage('Stages') {
