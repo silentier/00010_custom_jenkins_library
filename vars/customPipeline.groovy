@@ -20,6 +20,8 @@ spec:
                         script {
                             println "***************** V1.0"
                             sh ("cat /etc/os-release")
+                            sh("node --version")
+                            sh("npm --version")
                             sh("ng version")
 
                             versioning();
