@@ -20,7 +20,7 @@ spec:
                         script {
                             println "***************** V1.0"
                             sh ("cat /etc/os-release")
-                            sh("ng version")
+                            sh("npm install –g @angular/cli")
 
                             versioning();
                             compile();
