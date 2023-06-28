@@ -4,6 +4,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   namespace: devops-tools
+  name: esta_es_una_prueba
 spec:
   containers:
   - name: maven
